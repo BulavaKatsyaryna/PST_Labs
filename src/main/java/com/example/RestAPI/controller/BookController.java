@@ -1,5 +1,6 @@
 package com.example.RestAPI.controller;
 
+import com.example.RestAPI.model.AuthorBook;
 import com.example.RestAPI.model.Book;
 import com.example.RestAPI.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/controller/books/")
@@ -28,7 +32,6 @@ public class BookController {
         if (book == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 
@@ -39,8 +42,62 @@ public class BookController {
         if (book == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         this.bookService.save(book);
         return new ResponseEntity<>(book, headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book, UriComponentsBuilder builder) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (book == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.bookService.save(book);
+        return new ResponseEntity<>(book, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Book> deleteBook(@PathVariable("id") Long id) {
+        Book book = this.bookService.getById(id);
+
+        if (book == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        this.bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = this.bookService.getAll();
+
+        if (books.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "calculate/number/of/books/by/genre/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, Integer>> calculateNumberOfBooksByGenre() {
+
+        HashMap<String, Integer> booksGenre = this.bookService.calculateBookByGenre();
+
+        if (booksGenre.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(booksGenre, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "return/books/whose/author/has/more/than/{id}/written/books/", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AuthorBook>> returnBooksWhoseAuthorHasMoreThanNWrittenBooks(@PathVariable("id") int count) {
+
+        List<AuthorBook> authorBooks = this.bookService.returnBooks(count);
+
+        if (authorBooks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(authorBooks, HttpStatus.OK);
     }
 }
