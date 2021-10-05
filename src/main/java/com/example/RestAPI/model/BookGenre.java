@@ -9,7 +9,7 @@ import javax.persistence.Column;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookGenre {
+public class BookGenre extends MainEntity {
 
     @Column(name = "name")
     private String name;
