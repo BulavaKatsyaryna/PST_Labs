@@ -25,4 +25,7 @@ public class Book {
 
     @Column(name = "rating")
     private String rating;
+
+    @Column(name = "publication_year")
+    private int publicationYear;
 }
