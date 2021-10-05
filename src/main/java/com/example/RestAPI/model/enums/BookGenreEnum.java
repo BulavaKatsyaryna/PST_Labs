@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum BookGenreEnum {
 
-    NOVEL(1L, "Novel"),
-    FANTASY(2L, "Fantasy"),
+    TECHNICAL(1L, "Technical"),
+    EDUCATION(2L, "Education"),
     HISTORICAL(3L, "Historical"),
-    DETECTIVE(3L, "Detective"),
-    CHILDREN(4L, "Children");
+    FANTASY(4L, "Fantasy"),
+    CRIME(5L, "Crime"),
+    NOVEL(6L, "Novel");
 
     public Long id;
     public String name;

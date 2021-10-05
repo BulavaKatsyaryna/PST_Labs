@@ -3,17 +3,20 @@ package com.example.RestAPI.service;
 import com.example.RestAPI.model.AuthorBook;
 import com.example.RestAPI.model.Book;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface BookService {
 
     Book getById(Long id);
 
-    void delete(Long id);
-
     void save(Book customer);
+
+    void delete(Long id);
 
     List<Book> getAll();
 
-    List<AuthorBook> retrieveBooks(int count);
+    HashMap<String, Integer> calculateBookByGenre();
+
+    List<AuthorBook> returnBooks(int count);
 }

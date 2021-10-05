@@ -10,13 +10,13 @@ public interface AuthorBookService {
 
     AuthorBook getById(Long id);
 
-    void delete(Long id);
-
     void save(AuthorBook authorBook);
+
+    void delete(Long id);
 
     List<AuthorBook> getAll();
 
-    Author FindBookByPublicationYear();
-
     HashMap<Long, Integer> calculateBookByAuthor();
+
+    Author findTheBestAuthor();
 }
