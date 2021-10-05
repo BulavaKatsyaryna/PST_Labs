@@ -1,7 +1,8 @@
-package com.example.RestAPI.Implementation;
+package com.example.RestAPI.implementation;
 
 import com.example.RestAPI.model.AuthorBook;
 import com.example.RestAPI.model.Book;
+import com.example.RestAPI.model.BookGenre;
 import com.example.RestAPI.repository.BookRepo;
 import com.example.RestAPI.service.AuthorBookService;
 import com.example.RestAPI.service.BookService;
@@ -30,15 +31,15 @@ public class BookServiceImplementation implements BookService {
     }
 
     @Override
-    public void delete(Long id) {
-        log.info("IN BookServiceImpl delete {}", id);
-        bookRepo.delete(id);
-    }
-
-    @Override
     public void save(Book book) {
         log.info("IN BookServiceImpl save {}", book);
         bookRepo.save(book);
+    }
+
+    @Override
+    public void delete(Long id) {
+        log.info("IN BookServiceImpl delete {}", id);
+        bookRepo.delete(id);
     }
 
     @Override
@@ -48,7 +49,27 @@ public class BookServiceImplementation implements BookService {
     }
 
     @Override
-    public List<AuthorBook> retrieveBooks(int count) {
+    public HashMap<String, Integer> calculateBookByGenre() {
+        log.info("IN BookServiceImpl calculateBookByGenre");
+
+        HashMap<String, Integer> resultRecords = new HashMap<>();
+        List<Book> allRecords = bookRepo.findAll();
+
+        for (Book book : allRecords) {
+            BookGenre bookGenre = book.getBookGenre();
+
+            if (resultRecords.containsKey(bookGenre)) {
+                int countOfGenre = resultRecords.get(bookGenre);
+                resultRecords.put(bookGenre.toString(), countOfGenre + 1);
+            } else {
+                resultRecords.put(bookGenre.toString(), 1);
+            }
+        }
+        return resultRecords;
+    }
+
+    @Override
+    public List<AuthorBook> returnBooks(int count) {
         log.info("IN BookServiceImpl returnBooks");
 
         List<AuthorBook> allAuthorBooks = authorBookService.getAll();
@@ -65,10 +86,13 @@ public class BookServiceImplementation implements BookService {
                 ratingAuthorValid.put(key, value);
             }
         }
+
+
         for (HashMap.Entry<Long, Integer> pair : ratingAuthorValid.entrySet()) {
             Long key = pair.getKey();
             Integer value = pair.getValue();
         }
+
 
         for (AuthorBook pair : allAuthorBooks) {
 
@@ -78,7 +102,6 @@ public class BookServiceImplementation implements BookService {
                     allAuthorBooksValid.add(pair);
                 }
             }
-
         }
         return allAuthorBooksValid;
     }

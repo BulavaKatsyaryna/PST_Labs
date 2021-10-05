@@ -1,4 +1,4 @@
-package com.example.RestAPI.Implementation;
+package com.example.RestAPI.implementation;
 
 import com.example.RestAPI.model.Author;
 import com.example.RestAPI.model.AuthorBook;
