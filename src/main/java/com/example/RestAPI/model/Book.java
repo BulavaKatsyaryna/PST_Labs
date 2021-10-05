@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+public class Book extends MainEntity{
 
     @Column(name = "name")
     private String name;
@@ -25,7 +25,4 @@ public class Book {
 
     @Column(name = "rating")
     private String rating;
-
-    @Column(name = "publication_year")
-    private int publicationYear;
 }

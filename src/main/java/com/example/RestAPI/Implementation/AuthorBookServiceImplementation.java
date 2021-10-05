@@ -8,6 +8,7 @@ import com.example.RestAPI.service.AuthorBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -44,6 +45,11 @@ public class AuthorBookServiceImplementation implements AuthorBookService {
 
     @Override
     public Author FindBookByPublicationYear() {
+        return null;
+    }
+
+    @Override
+    public HashMap<Long, Integer> calculateBookByAuthor() {
         return null;
     }
 }

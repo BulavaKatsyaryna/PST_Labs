@@ -9,19 +9,22 @@ import javax.persistence.Column;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Author implements Comparable<Author>{
+public class Author extends MainEntity implements Comparable<Author>{
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "born")
+    private String born;
 
     @Override
-    public int compareTo(Author o) {
-        if (getLastName() == null || o.getLastName() == null) {
+    public int compareTo(Author author) {
+        if (getBorn() == null || author.getBorn() == null) {
             return 0;
         }
-        return getLastName().compareTo(o.lastName);
+        return getBorn().compareTo(author.getBorn());
     }
 }
