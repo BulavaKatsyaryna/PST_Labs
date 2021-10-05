@@ -43,7 +43,7 @@ public class AuthorServiceImplementation implements AuthorService {
     }
 
     @Override
-    public List<Author> getAllByYear(byte year) throws ParseException {
+    public List<Author> getAllByYear(byte year) throws java.text.ParseException {
         log.info("IN AuthorServiceImpl getAllByYear {}", year);
 
         List<Author> authorList = authorRepo.findAll();
@@ -80,7 +80,6 @@ public class AuthorServiceImplementation implements AuthorService {
                 iter.remove();
             }
         }
-
         Collections.sort(authorList);
         return authorList;
     }

@@ -15,5 +15,5 @@ public interface AuthorService {
 
     List<Author> getAll();
 
-    List<Author> getAllByYear(byte year) throws ParseException;
+    List<Author> getAllByYear(byte year) throws ParseException, java.text.ParseException;
 }

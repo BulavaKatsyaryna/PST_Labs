@@ -3,11 +3,13 @@ package com.example.RestAPI.Implementation;
 import com.example.RestAPI.model.BookGenre;
 import com.example.RestAPI.repository.BookGenreRepo;
 import com.example.RestAPI.service.BookGenreService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookGenreServiceImplementation implements BookGenreService {
 
@@ -16,11 +18,13 @@ public class BookGenreServiceImplementation implements BookGenreService {
 
     @Override
     public BookGenre getById(Long id) {
-        return null;
+        log.info("IN BookGenreServiceImpl getById {}", id);
+        return bookGenreRepo.findOne(id);
     }
 
     @Override
     public List<BookGenre> getAll() {
-        return null;
+        log.info("IN BookGenreServiceImpl getAll");
+        return bookGenreRepo.findAll();
     }
 }

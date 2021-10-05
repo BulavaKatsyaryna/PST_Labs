@@ -70,7 +70,6 @@ public class BookServiceImplementation implements BookService {
             Integer value = pair.getValue();
         }
 
-
         for (AuthorBook pair : allAuthorBooks) {
 
             for (HashMap.Entry<Long, Integer> pairValid : ratingAuthorValid.entrySet()) {

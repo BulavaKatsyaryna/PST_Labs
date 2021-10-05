@@ -72,7 +72,6 @@ public class AuthorBookServiceImplementation implements AuthorBookService {
                 uniqueRecords.put(authorId, 1);
             }
         }
-
         return uniqueRecords;
     }
 
@@ -94,7 +93,6 @@ public class AuthorBookServiceImplementation implements AuthorBookService {
                 bestResult = value;
             }
         }
-
         return authorRepo.findOne(theBestAuthor);
     }
 }
